@@ -1,7 +1,7 @@
 # Switchboard Roadmap
 
 *Last updated: 2026-07-04*  
-*Current Version: v0.0.0*
+*Current Version: v0.0.1*
 
 ## Overview
 This document tracks planned improvements, enhancements, and maintenance.

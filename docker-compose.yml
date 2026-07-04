@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: switchboard_app
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../.env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - switchboard_network
+
+  db:
+    image: postgres:16-alpine
+    container_name: switchboard_db
+    environment:
+      POSTGRES_USER: ${DB_USER:-switchboard}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-switchboard}
+      POSTGRES_DB: ${DB_NAME:-switchboard}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../db/data-v1:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-switchboard} -d ${DB_NAME:-switchboard}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - switchboard_network
+
+networks:
+  switchboard_network:
+    driver: bridge
