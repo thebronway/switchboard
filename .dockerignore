@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+
+# Build outputs (forces container to build its own binaries/transpiled files)
+dist/
+build/
+
+# Documentation and IDE
+README.md
+.vscode/
+.idea/
+
+# Testing and coverage
+tests/
+coverage/
